@@ -21,7 +21,7 @@ void MainWindow::onAbout()
 }
 
 void MainWindow::createActions()
-{
+{
     mpAboutAction = new QAction(tr("About &RubyCad"), this);
     mpAboutAction->setStatusTip(tr("Show RubyCad's About box"));
     connect(mpAboutAction, SIGNAL(triggered()), qApp, SLOT(onAbout()));
