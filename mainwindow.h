@@ -12,12 +12,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
 
-private slots:
+public slots:
     void onAbout();
 
 private:
-    void createActions();
-    void createMenus();
 
     QPlainTextEdit* mpTextEdit;
     QAction* mpAboutAction;
