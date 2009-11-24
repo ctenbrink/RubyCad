@@ -1,26 +1,38 @@
 #include <QtGui>
+#include <QLabel>
+#include <QDockWidget>
+#include <QVBoxLayout>
 #include "mainwindow.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    mpTextEdit = new QPlainTextEdit(this);
-    setCentralWidget(mpTextEdit);
+    setWindowTitle(tr("RubyCad"));
 
-    //setUnifiedTitleAndToolBarOnMac(true);
+    resize(600,400);
 
-    mpAboutAction = new QAction(tr("About &RubyCad"), this);
-    mpAboutAction->setStatusTip(tr("Show RubyCad's About box"));
-    connect(mpAboutAction, SIGNAL(triggered()), this, SLOT(onAbout()));
+    QLabel* pLabel = new QLabel(tr("Central Widget"));
+    setCentralWidget(pLabel);
+    pLabel->setAlignment(Qt::AlignCenter);
 
-    mpHelpMenu = menuBar()->addMenu(tr("&Blah"));
-    mpHelpMenu->addAction(mpAboutAction);
+    QDockWidget* pRubyConsoleDock = new QDockWidget(tr("Ruby Console"));
+    pRubyConsoleDock->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+    pRubyConsoleDock->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
+
+    addDockWidget(Qt::LeftDockWidgetArea, pRubyConsoleDock);
+
+    QVBoxLayout* pLayout = new QVBoxLayout(pRubyConsoleDock);
+
+    QTextEdit* pEdit = new QTextEdit(pRubyConsoleDock);
+    pLayout->addWidget(pEdit);
+
+    pEdit = new QTextEdit(pRubyConsoleDock);
+    pLayout->addWidget(pEdit);
+
+    setLayout(pLayout);
+
+//    pLabel = new QLabel(tr("Ruby Console Widget"));
+//    pRubyConsoleDock->setWidget(pLabel);
+//
+//    pLabel->setAlignment(Qt::AlignCenter);
 }
-
-void MainWindow::onAbout()
-{
-    QMessageBox::about(this, tr("About Application"),
-                             tr("RubyCad demonstrates how to embed a Ruby interpreter in an application."
-                                "Copyright 2009, Chris Tenbrink"));
-}
-

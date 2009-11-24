@@ -3,7 +3,6 @@
 
 #include <QtGui/QMainWindow>
 
-class QPlainTextEdit;
 
 class MainWindow : public QMainWindow
 {
@@ -12,14 +11,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
 
-public slots:
-    void onAbout();
-
 private:
-
-    QPlainTextEdit* mpTextEdit;
-    QAction* mpAboutAction;
-    QMenu* mpHelpMenu;
 };
 
 #endif // MAINWINDOW_H
