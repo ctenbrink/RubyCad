@@ -9,30 +9,25 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setWindowTitle(tr("RubyCad"));
 
-    resize(600,400);
+    resize(1400,700);
 
     QLabel* pLabel = new QLabel(tr("Central Widget"));
     setCentralWidget(pLabel);
     pLabel->setAlignment(Qt::AlignCenter);
 
-    QDockWidget* pRubyConsoleDock = new QDockWidget(tr("Ruby Console"));
-    pRubyConsoleDock->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
-    pRubyConsoleDock->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
+    QDockWidget* pDock = new QDockWidget(tr("Ruby Console"));
+    pDock->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
+    pDock->setFeatures(QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable);
 
-    addDockWidget(Qt::LeftDockWidgetArea, pRubyConsoleDock);
+    QWidget* pWidget = new QWidget(pDock);
+    QVBoxLayout* pLayout = new QVBoxLayout();
+    pLayout->addWidget(new QLabel(tr("Output")));
+    pLayout->addWidget(new QTextEdit());
+    pLayout->addWidget(new QLabel(tr("Input")));
+    pLayout->addWidget(new QLineEdit());
+    pWidget->setLayout(pLayout);
 
-    QVBoxLayout* pLayout = new QVBoxLayout(pRubyConsoleDock);
+    pDock->setWidget(pWidget);
 
-    QTextEdit* pEdit = new QTextEdit(pRubyConsoleDock);
-    pLayout->addWidget(pEdit);
-
-    pEdit = new QTextEdit(pRubyConsoleDock);
-    pLayout->addWidget(pEdit);
-
-    setLayout(pLayout);
-
-//    pLabel = new QLabel(tr("Ruby Console Widget"));
-//    pRubyConsoleDock->setWidget(pLabel);
-//
-//    pLabel->setAlignment(Qt::AlignCenter);
+    addDockWidget(Qt::LeftDockWidgetArea, pDock);
 }
